@@ -1,0 +1,40 @@
+--Hbase分布式配置
+1、配置hbase-env.sh文件
+export JAVA_HOME=/opt
+export HBASE_MANAGES_ZK=false 默认是true 需要去掉注释配置为false
+2、配置hbase-site.xml文件
+hbase.tmp.dir /opt/test/habse-0.98.6-cdh5.3.0/data/tmp
+hbase真正数据库地址
+hbase.rootdir hdfs://hadoop安装的主机名1:9000/hbase
+是不是分布式
+hbase.cluster.distributed true
+是否依赖于zookeeper
+hbase.zookeeper.quorum 主机名1,主机名2，主机名3
+3、创建data/tmp目录
+配置regionservers文件
+值为hbase安装的主机名，意味着regionservers和master是同一台机器
+
+--hbase目录结构
+conf 配置文件
+bin 命令
+lib 涉及到的jar包
+没有sbin
+
+--详细命令讲解-bin
+hbase 类似hdfs Hbase shell
+hbase-daemon.sh
+hbase-daemons.sh
+start-hbase.sh
+stop-hbase.sh
+
+--hbase监控WEB页面
+http://hbase的主机名:60010/ 默认的端口号是60010 ? 16010 
+1.0.1版本的hbase的master web 默认是不运行的，在hbase-site.xml中加入一下内容即可
+<name>hbase.master.info.port</name>  
+<value>60010</value> 
+启动命令是start-hbase.sh
+jps查看进程
+HregionServer
+HMaster
+DataNode
+NameNode
